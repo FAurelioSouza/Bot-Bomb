@@ -49,7 +49,7 @@ namespace Bot_Bomb
                 switch (aux)
                 {
                     case 0:
-                        if (MouseController.FindLocation(voltar, 0.5))
+                        if (MouseController.FindLocation(0, 0.5))
                         {
                             Console.WriteLine("Achou");
                         }
@@ -61,7 +61,7 @@ namespace Bot_Bomb
                         Console.WriteLine("CASE 0 FINALIZADO COUNTADOR = " + aux);
                         break;
                     case 1:
-                        if (MouseController.FindLocation(hunt, 0.7))
+                        if (MouseController.FindLocation(1, 0.7))
                         {
                             Console.WriteLine("Achou");
                         }

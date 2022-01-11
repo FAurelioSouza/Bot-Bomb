@@ -34,15 +34,14 @@ namespace Bot_Bomb.Controllers
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
         }
 
-        public static Boolean FindLocation(Bitmap SecondScreen, double tolerance)
+        public static Boolean FindLocation(int operador, double tolerance)
         {
             Boolean resultado = true;
 
             using (Bitmap ThreedScreen = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.bmp"))
             {
                 Rectangle location2 = new Rectangle();
-                Bitmap tela = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.bmp");
-                Rectangle location1 = CaptureController.searchBitmap(SecondScreen, tela, tolerance);
+                Rectangle location1 = CaptureController.searchBitmap(operador, tolerance);
                 int x = 0, y = 0;
                 Console.WriteLine("X: " + location1.X + "\nY: " + location1.Y + "\nWidth: " + location1.Width + "\nHeight: " + location1.Height);
                 for (x = 0; x < ThreedScreen.Width; x++)
