@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;//                     A
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -30,19 +30,26 @@ namespace Bot_Bomb
             t.Wait();
             Console.WriteLine("Começou");
 
-            CaptureController.FocusProcess();
-            CaptureController.screen();
-            Bitmap tela = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\telabombHeroes.jpg", true);
-            Bitmap voltar = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\btnVoltar.jpg", true);
-            Bitmap hunt = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\treasureHunt.jpg", true);
-
+            //CaptureController.FocusProcess();
+            //CaptureController.screen();
+            //Bitmap tela = null;
+            Bitmap voltar = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\btnVoltar.bmp");
+            Bitmap hunt = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\treasureHunt.bmp");
 
             while (true)
             {
+                var s = Task.Run(async delegate
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(5.0));
+                    return;
+                });
+                Console.WriteLine("COMEÇOU DO LOOP");
+                CaptureController.screen();
+
                 switch (aux)
                 {
                     case 0:
-                        if (MouseController.FindLocation(tela, voltar))
+                        if (MouseController.FindLocation(voltar, 0.5))
                         {
                             Console.WriteLine("Achou");
                         }
@@ -51,9 +58,10 @@ namespace Bot_Bomb
                             Console.WriteLine("Não Achou");
                         }
                         aux++;
+                        Console.WriteLine("CASE 0 FINALIZADO COUNTADOR = " + aux);
                         break;
                     case 1:
-                        if (MouseController.FindLocation(tela, hunt))
+                        if (MouseController.FindLocation(hunt, 0.7))
                         {
                             Console.WriteLine("Achou");
                         }
@@ -64,11 +72,12 @@ namespace Bot_Bomb
                         aux = 0;
                         break;
                 }
-                t.Wait();
+                Console.WriteLine("FINALIZOU O LOOP");
+                s.Wait();
             }
 
-
         }
+
     }
 }
 

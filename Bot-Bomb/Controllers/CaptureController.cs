@@ -37,14 +37,23 @@ namespace Bot_Bomb.Controllers
 
         public static void screen()
         {
+            const string path = @"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.bmp";
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+            
             Rectangle bounds = Screen.GetBounds(Point.Empty);
             using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
             {
                 using (Graphics g = Graphics.FromImage(bitmap))
                 {
                     g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+                    g.Dispose();
                 }
-                bitmap.Save(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.jpg", ImageFormat.Jpeg);
+                
+                bitmap.Save(path, ImageFormat.Bmp);
+                bitmap.Dispose();
             }
         }
         public static Rectangle searchBitmap(Bitmap smallBmp, Bitmap bigBmp, double tolerance)
@@ -143,6 +152,9 @@ namespace Bot_Bomb.Controllers
 
             bigBmp.UnlockBits(bigData);
             smallBmp.UnlockBits(smallData);
+
+            smallBmp.Dispose();
+            bigBmp.Dispose();
 
             return location;
         }
