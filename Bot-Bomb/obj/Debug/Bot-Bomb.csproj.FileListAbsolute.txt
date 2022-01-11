@@ -1,0 +1,8 @@
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\bin\Debug\Bot-Bomb.exe.config
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\bin\Debug\Bot-Bomb.exe
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\bin\Debug\Bot-Bomb.pdb
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\obj\Debug\Bot-Bomb.csproj.SuggestedBindingRedirects.cache
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\obj\Debug\Bot-Bomb.csproj.CoreCompileInputs.cache
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\obj\Debug\Bot-Bomb.exe
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\obj\Debug\Bot-Bomb.pdb
+C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\obj\Debug\Bot-Bomb.csproj.AssemblyReference.cache
