@@ -8,12 +8,15 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Bot_Bomb.Controllers
 {
 
     public class CaptureController
     {
+        public static string pathOrigem = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
         [DllImport("user32.dll")]
         internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
@@ -37,7 +40,7 @@ namespace Bot_Bomb.Controllers
 
         public static void screen()
         {
-            string path = @"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.bmp";
+            string path = pathOrigem + @"\ScreenSave\ScreenShot.bmp";
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
@@ -54,21 +57,42 @@ namespace Bot_Bomb.Controllers
 
                 bitmap.Save(path, ImageFormat.Bmp);
                 bitmap.Dispose();
-                
             }
         }
-        public static Rectangle searchBitmap(int operador, double tolerance)
+
+        public static string returnPath(int operador)
         {
             string path = null;
-            string tela = @"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.bmp";
-            if (operador == 0)
+            switch (operador)
             {
-                path = @"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\btnVoltar.bmp";
+                case 0:
+                    path = pathOrigem + @"\ScreenSave\btnVoltar.bmp";
+                    break;
+                case 1:
+                    path = pathOrigem + @"\ScreenSave\treasureHunt.bmp";
+                    break;
+                case 2:
+                    path = pathOrigem + @"\ScreenSave\btnHeroes.bmp";
+                    break;
+                case 3:
+                    path = pathOrigem + @"\ScreenSave\btnClose.bmp";
+                    break;
+                case 4:
+                    path = pathOrigem + @"\ScreenSave\todos.bmp";
+                    break;
+                case 5:
+                    path = pathOrigem + @"\ScreenSave\barraVERDONA.bmp";
+                    break;
             }
-            else
-            {
-                path = @"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\treasureHunt.bmp";
-            }
+
+            return path;
+        }
+
+        public static Rectangle searchBitmap(int operador, double tolerance)
+        {
+            string path = returnPath(operador);
+            string tela = pathOrigem + @"\ScreenSave\ScreenShot.bmp";
+
             using (Bitmap bigBmp = new Bitmap(tela))
             {
                 using (Bitmap smallBmp = new Bitmap(path))
@@ -91,6 +115,7 @@ namespace Bot_Bomb.Controllers
                     int smallHeight = smallBmp.Height;
 
                     Rectangle location = Rectangle.Empty;
+                    List<Rectangle> locationArrey = new List<Rectangle>();
                     int margin = Convert.ToInt32(255.0 * tolerance);
 
                     unsafe
@@ -140,6 +165,23 @@ namespace Bot_Bomb.Controllers
                                     pSmall += smallStride * (1 + i);
                                     pBig += bigStride * (1 + i);
                                 }
+                                /*
+                                 * Quando voltar tente isso, talvez de certo
+                                   pBig = pBigBackup;
+                                  pSmall = pSmallBackup;
+                                  pBig += 3;
+
+                                  if (matchFound)
+                                  {
+                                      location.X = x;
+                                      location.Y = y;
+                                      location.Width = smallBmp.Width;
+                                      location.Height = smallBmp.Height;
+                                      locationArrey.Add(location);
+                                      //break;
+                                  }
+
+                                */
 
                                 //If match found, we return.
                                 if (matchFound)
@@ -148,7 +190,8 @@ namespace Bot_Bomb.Controllers
                                     location.Y = y;
                                     location.Width = smallBmp.Width;
                                     location.Height = smallBmp.Height;
-                                    break;
+                                    locationArrey.Add(location);
+                                    //break;
                                 }
                                 //If no match found, we restore the pointers and continue.
                                 else
@@ -165,6 +208,11 @@ namespace Bot_Bomb.Controllers
                         }
                     }
 
+                    for (int i = 0; i < locationArrey.Count(); i++)
+                    {
+                        Console.WriteLine("X: " + locationArrey[i].X + "\nY: " + locationArrey[i].Y + "\nWidth: " + locationArrey[i].Width + "\nHeight: " + locationArrey[i].Height);
+                    }
+
                     bigBmp.UnlockBits(bigData);
                     smallBmp.UnlockBits(smallData);
 
@@ -174,7 +222,7 @@ namespace Bot_Bomb.Controllers
                     return location;
                 }
             }
-            
+
 
 
         }

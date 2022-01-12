@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace Bot_Bomb.Controllers
 {
     public class MouseController
     {
+        public static string pathOrigem = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         //Mouse actions
@@ -31,14 +34,14 @@ namespace Bot_Bomb.Controllers
             uint Y = (uint)Cursor.Position.Y;
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
-            mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+            //mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
         }
 
         public static Boolean FindLocation(int operador, double tolerance)
         {
             Boolean resultado = true;
 
-            using (Bitmap ThreedScreen = new Bitmap(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\ScreenShot.bmp"))
+            using (Bitmap ThreedScreen = new Bitmap(pathOrigem + @"\ScreenSave\ScreenShot.bmp"))
             {
                 Rectangle location2 = new Rectangle();
                 Rectangle location1 = CaptureController.searchBitmap(operador, tolerance);
@@ -67,7 +70,7 @@ namespace Bot_Bomb.Controllers
                         }
                     }
                 }
-                ThreedScreen.Save(@"C:\Users\lipex\Documents\Repository\Bot-Bomb\Bot-Bomb\ScreenSave\Finish.bmp", ImageFormat.Bmp);
+                ThreedScreen.Save(pathOrigem + @"\ScreenSave\Finish.bmp", ImageFormat.Bmp);
                 if (location1.X == 0 && location1.Y == 0)
                 {
                     resultado = false;
