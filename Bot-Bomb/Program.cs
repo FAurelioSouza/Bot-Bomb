@@ -39,7 +39,7 @@ namespace Bot_Bomb
             //Bitmap hunt = new Bitmap(pathOrigem + @"\ScreenSave\treasureHunt.bmp");
 
             CaptureController.screen();
-            if (MouseController.FindLocation(5, .45))
+            if (MouseController.FindLocationList(5, .45))
             {
                 Console.WriteLine("Achou");
             }

@@ -84,5 +84,58 @@ namespace Bot_Bomb.Controllers
             return resultado;
         }
 
+
+        public static Boolean FindLocationList(int operador, double tolerance)
+        {
+            Boolean resultado = true;
+
+            using (Bitmap ThreedScreen = new Bitmap(pathOrigem + @"\ScreenSave\ScreenShot.bmp"))
+            {
+                Rectangle location2 = new Rectangle();
+                Rectangle location1 = CaptureController.searchBitmap(operador, tolerance);
+                List<Rectangle> location3 = CaptureController.searchBitmapList(operador, tolerance);
+                int x = 0, y = 0;
+                Console.WriteLine("X: " + location1.X + "\nY: " + location1.Y + "\nWidth: " + location1.Width + "\nHeight: " + location1.Height);
+                for (x = 0; x < ThreedScreen.Width; x++)
+                {
+                    for (y = 0; y < ThreedScreen.Height; y++)
+                    {
+                        for (int i = 0; i < location3.Count(); i++)
+                        {
+                            if (x >= location3[i].X && y >= location3[i].Y)
+                            {
+                                if (y <= location3[i].Y + location3[i].Height)
+                                {
+                                    if (x <= location3[i].X + location3[i].Width)
+                                    {
+                                        if (x == Convert.ToInt32((location3[i].X + (location3[i].Width / 2))) && y == Convert.ToInt32((location3[i].Y + (location3[i].Height / 2))))
+                                        {
+                                            location2.X = x;
+                                            location2.Y = y;
+                                        }
+                                        Color pixelColor = ThreedScreen.GetPixel(x, y);
+                                        Color newColor = Color.FromArgb(pixelColor.R, pixelColor.G, 0);
+                                        ThreedScreen.SetPixel(x, y, newColor);
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+                ThreedScreen.Save(pathOrigem + @"\ScreenSave\Finish.bmp", ImageFormat.Bmp);
+                if (location1.X == 0 && location1.Y == 0)
+                {
+                    resultado = false;
+                }
+                else
+                {
+                    MouseController.MoveCursor(location1);
+                }
+                Console.WriteLine("Pronto");
+            }
+            return resultado;
+        }
+
     }
 }
