@@ -26,20 +26,26 @@ namespace Bot_Bomb
                 return 42;
             });
 
-            int aux = 0;
+            string aux = "Voltar";
 
             Console.WriteLine("Começa em 10 segundos, coloque na tela do bomb");
             t.Wait();
             Console.WriteLine("Começou");
 
-            //CaptureController.FocusProcess();
-            //CaptureController.screen();
-            //Bitmap tela = null;
-            //Bitmap voltar = new Bitmap(pathOrigem + @"\ScreenSave\btnVoltar.bmp");
-            //Bitmap hunt = new Bitmap(pathOrigem + @"\ScreenSave\treasureHunt.bmp");
+            CaptureController.screen();
+            if (MouseController.FindLocationList("Stamina", 0.4))
+            {
+                Console.WriteLine("Achou");
+            }
+            else
+            {
+                Console.WriteLine("Não Achou");
+            }
+
+            Delay(5).Wait();
 
             CaptureController.screen();
-            if (MouseController.FindLocationList(5, .45))
+            if (MouseController.FindLocationList("Work", 0.4))
             {
                 Console.WriteLine("Achou");
             }
@@ -55,8 +61,8 @@ namespace Bot_Bomb
 
             //    switch (aux)
             //    {
-            //        case 0:
-            //            if (MouseController.FindLocation(0, 0.5))
+            //        case "Voltar":
+            //            if (MouseController.FindLocation("Voltar", 0.5))
             //            {
             //                Console.WriteLine("Achou");
             //            }
@@ -64,12 +70,12 @@ namespace Bot_Bomb
             //            {
             //                Console.WriteLine("Não Achou");
             //            }
-            //            aux = 2;
+            //            aux = "Heroes";
             //            Console.WriteLine("CASE 0 FINALIZADO COUNTADOR = " + aux);
             //            Delay(5).Wait();
             //            break;
-            //        case 1:
-            //            if (MouseController.FindLocation(1, 0.7))
+            //        case "Hunt":
+            //            if (MouseController.FindLocation("Hunt", 0.7))
             //            {
             //                Console.WriteLine("Achou");
             //            }
@@ -77,12 +83,12 @@ namespace Bot_Bomb
             //            {
             //                Console.WriteLine("Não Achou");
             //            }
-            //            aux = 0;
+            //            aux = "Voltar";
             //            Console.WriteLine("CASE 1 FINALIZADO COUNTADOR = " + aux);
             //            Delay(5).Wait();
             //            break;
-            //        case 2:
-            //            if (MouseController.FindLocation(2, 0.5))
+            //        case "Heroes":
+            //            if (MouseController.FindLocation("Heroes", 0.5))
             //            {
             //                Console.WriteLine("Achou");
             //            }
@@ -90,12 +96,12 @@ namespace Bot_Bomb
             //            {
             //                Console.WriteLine("Não Achou");
             //            }
-            //            aux = 4;
+            //            aux = "Todos";
             //            Console.WriteLine("CASE 2 FINALIZADO COUNTADOR = " + aux);
             //            Delay(5).Wait();
             //            break;
-            //        case 3:
-            //            if (MouseController.FindLocation(3, 0.5))
+            //        case "Close":
+            //            if (MouseController.FindLocation("Close", 0.5))
             //            {
             //                Console.WriteLine("Achou");
             //            }
@@ -103,21 +109,12 @@ namespace Bot_Bomb
             //            {
             //                Console.WriteLine("Não Achou");
             //            }
-            //            if (MouseController.FindLocation(4, .4))
-            //            {
-            //                Console.WriteLine("Achou");
-            //            }
-            //            else
-            //            {
-            //                Console.WriteLine("Não Achou");
-            //            }
-
-            //            aux = 1;
+            //            aux = "Hunt";
             //            Console.WriteLine("CASE 3 FINALIZADO COUNTADOR = " + aux);
             //            Delay(5).Wait();
             //            break;
-            //        case 4:
-            //            if (MouseController.FindLocation(4, .4))
+            //        case "Todos":
+            //            if (MouseController.FindLocation("Todos", .4))
             //            {
             //                Console.WriteLine("Achou");
             //            }
@@ -126,7 +123,7 @@ namespace Bot_Bomb
             //                Console.WriteLine("Não Achou");
             //            }
 
-            //            aux = 3;
+            //            aux = "Close";
             //            Console.WriteLine("CASE 4 FINALIZADO COUNTADOR = " + aux);
             //            Delay(5).Wait();
             //            break;

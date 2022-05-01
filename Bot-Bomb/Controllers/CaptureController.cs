@@ -60,35 +60,38 @@ namespace Bot_Bomb.Controllers
             }
         }
 
-        public static string returnPath(int operador)
+        public static string returnPath(string operador)
         {
             string path = null;
             switch (operador)
             {
-                case 0:
+                case "Voltar":
                     path = pathOrigem + @"\ScreenSave\btnVoltar.bmp";
                     break;
-                case 1:
+                case "Hunt":
                     path = pathOrigem + @"\ScreenSave\treasureHunt.bmp";
                     break;
-                case 2:
+                case "Heroes":
                     path = pathOrigem + @"\ScreenSave\btnHeroes.bmp";
                     break;
-                case 3:
+                case "Close":
                     path = pathOrigem + @"\ScreenSave\btnClose.bmp";
                     break;
-                case 4:
+                case "Todos":
                     path = pathOrigem + @"\ScreenSave\todos.bmp";
                     break;
-                case 5:
+                case "Stamina":
                     path = pathOrigem + @"\ScreenSave\barraVERDONA.bmp";
+                    break;
+                case "Work":
+                    path = pathOrigem + @"\ScreenSave\btnWork.bmp";
                     break;
             }
 
             return path;
         }
 
-        public static Rectangle searchBitmap(int operador, double tolerance)
+        public static Rectangle searchBitmap(string operador, double tolerance)
         {
             string path = returnPath(operador);
             string tela = pathOrigem + @"\ScreenSave\ScreenShot.bmp";
@@ -203,7 +206,7 @@ namespace Bot_Bomb.Controllers
 
         }
 
-        public static List<Rectangle> searchBitmapList(int operador, double tolerance)
+        public static List<Rectangle> searchBitmapList(string operador, double tolerance)
         {
             string path = returnPath(operador);
             string tela = pathOrigem + @"\ScreenSave\ScreenShot.bmp";
